@@ -1,0 +1,19 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Extensions.Logging.Log4Net.AspNetCore" Version="3.1.0" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Areas\DemoPlugin\Controllers\" />
+    <Folder Include="Areas\DemoPlugin\Data\" />
+    <Folder Include="Areas\DemoPlugin\Models\" />
+    <Folder Include="Areas\DemoPlugin\Views\" />
+  </ItemGroup>
+
+</Project>
