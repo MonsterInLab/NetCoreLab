@@ -1,4 +1,5 @@
-﻿
+﻿@using Microsoft.AspNetCore.Http;
+
 @{
     ViewData["Title"] = "Index";
 }
@@ -9,5 +10,6 @@
 <h2>@base.TempData["User3"]</h2>
 <h2>@Model</h2>
 
+<h2>@base.Context.Session.GetString("User4")</h2>
 
 

@@ -31,12 +31,13 @@ namespace Center.Web.Controllers
 
             //session还需要配置？ 以前直接用就好了 ashx默认没有session
             //配置了2下 就可以用了
-            //string result = base.HttpContext.Session.GetString("User4");
-            //声明接口时，只提供最基本的诉求，扩展性的都没有了，
-            //if (string.IsNullOrWhiteSpace(result))
-            //{
-            //    base.HttpContext.Session.SetString("User4", "情深");
-            //}
+            string result = base.HttpContext.Session.GetString("User4");
+
+           // 声明接口时，只提供最基本的诉求，扩展性的都没有了，
+            if (string.IsNullOrWhiteSpace(result))
+            {
+                base.HttpContext.Session.SetString("User4", "情深");
+            }
 
             object name = "ivy";
 
