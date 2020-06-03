@@ -1,6 +1,5 @@
-### Net Core 3.1
-
-### 1. config log4Net
+## Net Core 3.1
+#### 1. config log4Net
 ---
 ## 2020.6.2 core 基础
 #### run web by cmd
