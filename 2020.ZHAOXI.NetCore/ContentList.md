@@ -1,5 +1,13 @@
 #### 课程目录
 
+### 12.30 Asp.Net Core 基础 <a href="https://ke.qq.com/webcourse/index.html#cid=456926&term_id=100546738&taid=4039343727900894&type=1024&vid=5285890797258975222">Link</a>
+          1. log4Net
+
+### 1.2 Asp.Net Core 基础<a href="https://ke.qq.com/webcourse/index.html#cid=456926&term_id=100546738&taid=4039348022868190&type=1024&vid=5285890797344559987">Link</a>
+          1. Middleware扩展
+          2. 理解管道模型
+          2. IOC，多层依赖注入
+          3. 扩展Autofac
 
 ### 1.8 微服务架构专题（1） <a href="https://ke.qq.com/webcourse/index.html#cid=456926&term_id=100546738&taid=4039360907770078&type=1024&vid=5285890797557784059">Link </a>
           1. 微服务架构解析
