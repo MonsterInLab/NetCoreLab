@@ -25,16 +25,18 @@ namespace Center.Web
             //hostBuilder.ConfigureWebHost()
             var host = hostBuilder.Build();//
             //IHostedService
+            
+            
             host.Run();
         }
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>
             Host.CreateDefaultBuilder(args)
-            .ConfigureLogging(loggingBuilder =>
-            {
-                loggingBuilder.AddLog4Net();//需要配置文件
-                DefaultServiceProviderFactory
-            })
+            //.ConfigureLogging(loggingBuilder =>
+            //{
+            //    loggingBuilder.AddLog4Net();//需要配置文件
+            //   // DefaultServiceProviderFactory
+            //})
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
                     

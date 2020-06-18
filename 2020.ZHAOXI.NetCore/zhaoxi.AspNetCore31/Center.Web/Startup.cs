@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using log4net.Repository.Hierarchy;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.FileProviders;
@@ -34,33 +35,81 @@ namespace Center.Web
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env,ILoggerFactory loggerFactory)
         {
-            if (env.IsDevelopment())
+
+            //app.Run(context =>
+            //{
+            //   return context.Response.WriteAsync("This is hello word");
+            //});
+
+            #region ÖÐ¼ä¼þ RequestDelegate
+            app.Use(next =>
             {
-                app.UseDeveloperExceptionPage();
-            }
-            else
+                Console.WriteLine("Middleware 1 ");
+                return new RequestDelegate(
+                    async context =>
+                    {
+                        await context.Response.WriteAsync("This IS Hello word 1 start<br/>");
+                        await next.Invoke(context);
+                        await context.Response.WriteAsync("This is hello word 1 end<br/>");
+                    }
+                    );
+            });
+            app.Use(next =>
             {
-                app.UseExceptionHandler("/Home/Error");
-            }
-            app.UseStaticFiles(new StaticFileOptions()
+                Console.WriteLine("Middleware 2 ");
+                return new RequestDelegate(
+                    async context =>
+                    {
+                        await context.Response.WriteAsync("This IS Hello word 2 start<br/>");
+                        await next.Invoke(context);
+                        await context.Response.WriteAsync("This is hello word 2 end<br/>");
+                    }
+                    );
+            });
+            app.Use(next =>
             {
-                FileProvider = new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory(), @"wwwroot"))
+                Console.WriteLine("Middleware 3 ");
+                return new RequestDelegate(
+                    async context =>
+                    {
+                        await context.Response.WriteAsync("This IS Hello word 3 start");
+                       // await next.Invoke(context);
+                        await context.Response.WriteAsync("This is hello word 3 end");
+                    }
+                    );
             });
 
-            loggerFactory.AddLog4Net();
+            #endregion
 
-            app.UseSession();
+            #region  app config
+            //if (env.IsDevelopment())
+            //{
+            //    app.UseDeveloperExceptionPage();
+            //}
+            //else
+            //{
+            //    app.UseExceptionHandler("/Home/Error");
+            //}
+            //app.UseStaticFiles(new StaticFileOptions()
+            //{
+            //    FileProvider = new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory(), @"wwwroot"))
+            //});
 
-            app.UseRouting();
+            //loggerFactory.AddLog4Net();
 
-            app.UseAuthorization();
+            //app.UseSession();
 
-            app.UseEndpoints(endpoints =>
-            {
-                endpoints.MapControllerRoute(
-                    name: "default",
-                    pattern: "{controller=Home}/{action=Index}/{id?}");
-            });
+            //app.UseRouting();
+
+            //app.UseAuthorization();
+
+            //app.UseEndpoints(endpoints =>
+            //{
+            //    endpoints.MapControllerRoute(
+            //        name: "default",
+            //        pattern: "{controller=Home}/{action=Index}/{id?}");
+            //});
+            #endregion
         }
     }
 }
