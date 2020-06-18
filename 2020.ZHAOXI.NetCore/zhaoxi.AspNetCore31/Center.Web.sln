@@ -11,6 +11,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Center.IOCDI.Framework", "C
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Center.Service", "Center.Service\Center.Service.csproj", "{73AC3CCD-E295-4E1E-9DAC-B6A0619BD5BC}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "RM.IOCTest", "RM.IOCTest", "{2DB059FF-D3C0-4657-BCFD-0D5147491B90}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
