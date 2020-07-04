@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
@@ -14,6 +14,10 @@
     <Folder Include="Areas\DemoPlugin\Data\" />
     <Folder Include="Areas\DemoPlugin\Models\" />
     <Folder Include="Areas\DemoPlugin\Views\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Center.Interface\Center.Interface.csproj" />
   </ItemGroup>
 
 </Project>
