@@ -4,6 +4,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Mime;
 using System.Threading.Tasks;
+using Autofac.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -37,6 +38,7 @@ namespace Center.Web
             //    loggingBuilder.AddLog4Net();//需要配置文件
             //   // DefaultServiceProviderFactory
             //})
+            .UseServiceProviderFactory(new AutofacServiceProviderFactory()) //设置工厂来替换实例
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
                     

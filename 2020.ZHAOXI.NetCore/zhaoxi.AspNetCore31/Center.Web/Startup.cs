@@ -16,6 +16,7 @@ using Microsoft.Extensions.Logging;
 using ILoggerFactory = Microsoft.Extensions.Logging.ILoggerFactory;
 using Center.Interface;
 using Center.Service;
+using Autofac;
 
 namespace Center.Web
 {
@@ -39,11 +40,19 @@ namespace Center.Web
             services.AddSingleton<ITestServiceB, TestServiceB>(); //单例
             services.AddScoped<ITestServiceC, TestServiceC>();    //作用域
             services.AddTransient<ITestServiceD, TestServiceD>();
-            services.AddTransient<ITestServiceE, TestServiceE>();
+          //  services.AddTransient<ITestServiceE, TestServiceE>();
         }
 
-    // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-    public void Configure(IApplicationBuilder app, IWebHostEnvironment env,ILoggerFactory loggerFactory)
+        
+        //Autofac 容器注册服务
+        public void ConfigureContainer(ContainerBuilder containerBuilder)
+        {
+          //  containerBuilder.RegisterType<TestServiceE>().As<ITestServiceE>().SingleInstance();
+            containerBuilder.RegisterModule<CustomAutofacModule>();
+        }
+
+        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env,ILoggerFactory loggerFactory)
         {
 
             //app.Run(context =>
