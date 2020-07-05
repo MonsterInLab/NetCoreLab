@@ -14,6 +14,8 @@ using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using ILoggerFactory = Microsoft.Extensions.Logging.ILoggerFactory;
+using Center.Interface;
+using Center.Service;
 
 namespace Center.Web
 {
@@ -31,10 +33,17 @@ namespace Center.Web
         {
             services.AddSession();
             services.AddControllersWithViews();
+
+            //作用域其实依赖于ServiceProvider（这个自身是根据请求的），跟多线程没关系
+            services.AddTransient<ITestServiceA, TestServiceA>(); //瞬时
+            services.AddSingleton<ITestServiceB, TestServiceB>(); //单例
+            services.AddScoped<ITestServiceC, TestServiceC>();    //作用域
+            services.AddTransient<ITestServiceD, TestServiceD>();
+            services.AddTransient<ITestServiceE, TestServiceE>();
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env,ILoggerFactory loggerFactory)
+    // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+    public void Configure(IApplicationBuilder app, IWebHostEnvironment env,ILoggerFactory loggerFactory)
         {
 
             //app.Run(context =>
@@ -107,7 +116,7 @@ namespace Center.Web
             //});
             #endregion
 
-            #region 自定义中间件 middlewate
+            #region 自定义中间件 middleware
             ////根据条件指定中间件 指向终结点，没有Next
             //app.Map("/Test", MapTest);
             //app.Map("/Eleven", a => a.Run(async context =>

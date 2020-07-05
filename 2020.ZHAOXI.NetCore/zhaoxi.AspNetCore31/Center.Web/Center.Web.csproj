@@ -18,6 +18,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Center.Interface\Center.Interface.csproj" />
+    <ProjectReference Include="..\Center.Service\Center.Service.csproj" />
   </ItemGroup>
 
 </Project>
