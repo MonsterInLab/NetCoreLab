@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Center.Interface;
+using Center.Web.Utility;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
@@ -46,11 +47,21 @@ namespace Center.Web.Controllers
         }
         #endregion
 
+        /// <summary>
+        /// 特性是编译时确定的，参数只能是常量，不能是变量
+        /// </summary>
+        /// <returns></returns>
+        //[ServiceFilter(typeof(CustomExceptionFilterAttribute))]
+        //[TypeFilter(typeof(CustomExceptionFilterAttribute))]
+        [CustomIOCFilterFactoryAttribute(typeof(CustomExceptionFilterAttribute))]
         public IActionResult Index()
         {
             this._logger.LogWarning("This is ThirdController Index");
             string allowedHosts = this._configuration["AllowedHosts"];
-           
+
+            string allowedHost = this._configuration["AllowedHost"].ToString();
+
+
             string write = this._configuration["ConnectionStrings:Write"];
             string read1 = this._configuration["ConnectionStrings:Read:0"];
             //string write = this._configuration["ConnectionStrings:Write"];

@@ -35,6 +35,8 @@ namespace Center.Web
             services.AddSession();
             services.AddControllersWithViews();
 
+            services.AddScoped(typeof(CustomExceptionFilterAttribute)); //容器生成 
+
             //作用域其实依赖于ServiceProvider（这个自身是根据请求的），跟多线程没关系
             services.AddTransient<ITestServiceA, TestServiceA>(); //瞬时
             services.AddSingleton<ITestServiceB, TestServiceB>(); //单例
