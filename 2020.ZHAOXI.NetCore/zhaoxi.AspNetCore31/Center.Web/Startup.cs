@@ -34,6 +34,12 @@ namespace Center.Web
         {
             services.AddSession();
             services.AddControllersWithViews();
+            //services.AddControllersWithViews(
+            //    options =>
+            //    {
+            //        options.Filters.Add<CustomExceptionFilterAttribute>();//全局注册异常处理
+            //    }
+            //    );
 
             services.AddScoped(typeof(CustomExceptionFilterAttribute)); //容器生成 
 
