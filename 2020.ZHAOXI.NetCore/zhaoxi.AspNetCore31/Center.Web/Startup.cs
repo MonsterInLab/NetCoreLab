@@ -33,13 +33,14 @@ namespace Center.Web
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddSession();
-            services.AddControllersWithViews();
-            //services.AddControllersWithViews(
-            //    options =>
-            //    {
-            //        options.Filters.Add<CustomExceptionFilterAttribute>();//全局注册异常处理
-            //    }
-            //    );
+          //  services.AddControllersWithViews();
+            services.AddControllersWithViews(
+                options =>
+                {
+                    options.Filters.Add<CustomExceptionFilterAttribute>();//全局注册异常处理
+                    options.Filters.Add<CustomGlobalFilterAttribute>();//全局注册异常处理
+                }
+                );
 
             services.AddScoped(typeof(CustomExceptionFilterAttribute)); //容器生成 
 

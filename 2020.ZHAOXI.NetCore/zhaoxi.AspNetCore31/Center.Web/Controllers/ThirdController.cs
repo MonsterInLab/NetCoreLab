@@ -11,6 +11,7 @@ using Microsoft.Extensions.Options;
 
 namespace Center.Web.Controllers
 {
+    [CustomControllerFilterAttribute]
     public class ThirdController : Controller
     {
         #region Identity
@@ -70,6 +71,20 @@ namespace Center.Web.Controllers
                 .GetSection("ConnectionStrings").GetSection("Read").GetChildren()
                 .Select(s => s.Value).ToArray();
 
+            return View();
+        }
+
+        /// <summary>
+        /// 全局---控制器---Action  Order默认0，从小到大执行  可以负数
+        /// </summary>
+        /// <returns></returns>
+     //   [CustomActionFilterAttribute(Order = 10)]
+        [CustomActionFilterAttribute]
+        //[CustomActionCacheFilterAttribute(Order = -1)]
+      //  [IResourceFilter]
+      //  [CustomResourceFilterAttribute]
+        public IActionResult Info()
+        {
             return View();
         }
 
