@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using Center.Interface;
 using Center.Web.Utility;
@@ -78,13 +79,15 @@ namespace Center.Web.Controllers
         /// 全局---控制器---Action  Order默认0，从小到大执行  可以负数
         /// </summary>
         /// <returns></returns>
-     //   [CustomActionFilterAttribute(Order = 10)]
+        [CustomActionFilterAttribute(Order = 10)]
         [CustomActionFilterAttribute]
-        //[CustomActionCacheFilterAttribute(Order = -1)]
+        [CustomActionCacheFilterAttribute(Order = -1)]
       //  [IResourceFilter]
-      //  [CustomResourceFilterAttribute]
+        [CustomResourceFilterAttribute]
         public IActionResult Info()
         {
+            ViewBag.Now = DateTime.Now;
+            Thread.Sleep(2000);
             return View();
         }
 

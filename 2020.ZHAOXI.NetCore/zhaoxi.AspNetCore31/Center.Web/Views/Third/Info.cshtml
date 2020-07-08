@@ -1,7 +1,10 @@
 ﻿
 @{
     ViewData["Title"] = "Info";
+    Console.WriteLine($"This is ThirdController View Info");
 }
 
 <h1>Info</h1>
 
+<h1>Action： @base.ViewBag.Now.ToString("HH:mm:ss fff")</h1>
+<h1>View: @DateTime.Now.ToString("HH:mm:ss fff")</h1>
