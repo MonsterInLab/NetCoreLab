@@ -5,6 +5,11 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="System.Data.SqlClient" Version="4.8.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Center.EntityFrameworkCore31.Model\Center.EntityFrameworkCore31.Model.csproj" />
     <ProjectReference Include="..\Center.Interface\Center.Interface.csproj" />
   </ItemGroup>
 
