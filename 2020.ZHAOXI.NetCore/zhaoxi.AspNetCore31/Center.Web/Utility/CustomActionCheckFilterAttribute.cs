@@ -11,7 +11,7 @@ using Center.Web.Utility.WebHelper;
 
 namespace Center.Web.Utility
 {
-    public class CustomActionCheckFilterAttribute: ActionFilterAttribute
+    public class CustomActionCheckFilterAttribute : ActionFilterAttribute
     {
         #region Identity
         private readonly ILogger<CustomActionCheckFilterAttribute> _logger;
@@ -28,13 +28,12 @@ namespace Center.Web.Utility
             CurrentUser currentUser = context.HttpContext.GetCurrentUserBySession();
             if (currentUser == null)
             {
-                //if (this.IsAjaxRequest(context.HttpContext.Request))
-                //{ }
                 context.Result = new RedirectResult("~/Fourth/Login");
             }
             else
             {
-                this._logger.LogDebug($"{currentUser.Name} 访问系统");
+                var path = context.HttpContext.Request.Path;
+                this._logger.LogDebug($"{currentUser.Name} 访问系统:{path} ");
             }
         }
 

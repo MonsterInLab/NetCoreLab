@@ -13,6 +13,7 @@ using Microsoft.Extensions.Options;
 namespace Center.Web.Controllers
 {
     [CustomControllerFilterAttribute]
+    [TypeFilter(typeof(CustomActionCheckFilterAttribute))]
     public class ThirdController : Controller
     {
         #region Identity
