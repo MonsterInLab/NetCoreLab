@@ -39,8 +39,7 @@ namespace Center.Web
                 {
                     options.Filters.Add<CustomExceptionFilterAttribute>();//全局注册异常处理
                     options.Filters.Add<CustomGlobalFilterAttribute>();//全局注册异常处理
-                }
-                );
+                }).AddRazorRuntimeCompilation();//修改cshtml后能自动编译
 
             services.AddScoped(typeof(CustomExceptionFilterAttribute)); //容器生成 
 
