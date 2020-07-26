@@ -1,11 +1,11 @@
 ﻿@using Center.Web.Models;
 @using Center.Web.Utility.WebHelper; 
 @{
-    CurrentUser currentUser = base.Context.GetCurrentUserBySession();
-    //CurrentUser currentUser = base.Context.User.Identity.Name == null ? null : new CurrentUser()
-    //{
-    //    Name = base.Context.User.Identity.Name
-    //};
+    // CurrentUser currentUser = base.Context.GetCurrentUserBySession();
+    CurrentUser currentUser = base.Context.User.Identity.Name == null ? null : new CurrentUser()
+    {
+        Name = base.Context.User.Identity.Name
+    };
 }
 @if (currentUser != null)
 {

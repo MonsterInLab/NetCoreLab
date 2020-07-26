@@ -5,6 +5,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Center.Interface;
 using Center.Web.Utility;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
@@ -13,7 +14,8 @@ using Microsoft.Extensions.Options;
 namespace Center.Web.Controllers
 {
     [CustomControllerFilterAttribute]
-    [TypeFilter(typeof(CustomActionCheckFilterAttribute))]
+   // [TypeFilter(typeof(CustomActionCheckFilterAttribute))]
+    [Authorize]
     public class ThirdController : Controller
     {
         #region Identity
@@ -62,7 +64,7 @@ namespace Center.Web.Controllers
             this._logger.LogWarning("This is ThirdController Index");
             string allowedHosts = this._configuration["AllowedHosts"];
 
-            string allowedHost = this._configuration["AllowedHost"].ToString();
+            //string allowedHost = this._configuration["AllowedHost"].ToString();
 
 
             string write = this._configuration["ConnectionStrings:Write"];
@@ -84,7 +86,8 @@ namespace Center.Web.Controllers
         [CustomActionFilterAttribute]
         [CustomActionCacheFilterAttribute(Order = -1)]
       //  [IResourceFilter]
-        [CustomResourceFilterAttribute]
+       // [CustomResourceFilterAttribute]
+
         public IActionResult Info()
         {
             ViewBag.Now = DateTime.Now;

@@ -121,23 +121,23 @@ namespace Center.Web.Controllers
                         LoginTime = DateTime.Now
                     };
                     #region Cookie/Session 自己写
-                    base.HttpContext.SetCookies("CurrentUser", Newtonsoft.Json.JsonConvert.SerializeObject(currentUser), 30);
-                    base.HttpContext.Session.SetString("CurrentUser", Newtonsoft.Json.JsonConvert.SerializeObject(currentUser));
+                    //base.HttpContext.SetCookies("CurrentUser", Newtonsoft.Json.JsonConvert.SerializeObject(currentUser), 30);
+                    //base.HttpContext.Session.SetString("CurrentUser", Newtonsoft.Json.JsonConvert.SerializeObject(currentUser));
                     #endregion
                     //过期时间全局设置
 
                     #region MyRegion Claim
-                    //var claims = new List<Claim>()
-                    //{
-                    //    new Claim(ClaimTypes.Name,name),
-                    //    new Claim("password",password),//可以写入任意数据
-                    //    new Claim("Account","Administrator")
-                    //};
-                    //var userPrincipal = new ClaimsPrincipal(new ClaimsIdentity(claims, "Customer"));
-                    //HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, userPrincipal, new AuthenticationProperties
-                    //{
-                    //    ExpiresUtc = DateTime.UtcNow.AddMinutes(30),
-                    //}).Wait();//没用await
+                    var claims = new List<Claim>()
+                    {
+                        new Claim(ClaimTypes.Name,name),
+                        new Claim("password",password),//可以写入任意数据
+                        new Claim("Account","Administrator")
+                    };
+                    var userPrincipal = new ClaimsPrincipal(new ClaimsIdentity(claims, "Customer"));
+                    HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, userPrincipal, new AuthenticationProperties
+                    {
+                        ExpiresUtc = DateTime.UtcNow.AddMinutes(30),
+                    }).Wait();//没用await
                     //cookie策略--用户信息---过期时间
                     #endregion
 

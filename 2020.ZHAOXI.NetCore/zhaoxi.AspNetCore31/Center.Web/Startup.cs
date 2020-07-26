@@ -17,6 +17,8 @@ using ILoggerFactory = Microsoft.Extensions.Logging.ILoggerFactory;
 using Center.Interface;
 using Center.Service;
 using Autofac;
+using Microsoft.AspNetCore.Authentication.Cookies;
+
 
 namespace Center.Web
 {
@@ -40,6 +42,14 @@ namespace Center.Web
                     options.Filters.Add<CustomExceptionFilterAttribute>();//全局注册异常处理
                     options.Filters.Add<CustomGlobalFilterAttribute>();//全局注册异常处理
                 }).AddRazorRuntimeCompilation();//修改cshtml后能自动编译
+
+            // 鉴权  授权
+            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+                .AddCookie(options => 
+                {
+                    options.LoginPath = new PathString("/Fourth/Login");
+                    options.AccessDeniedPath = new PathString("/Home/Privacy");
+                });//用cookie的方式验证，顺便初始化登录地址
 
             services.AddScoped(typeof(CustomExceptionFilterAttribute)); //容器生成 
 
@@ -176,7 +186,9 @@ namespace Center.Web
 
             app.UseRouting();
 
-            app.UseAuthorization();
+            app.UseAuthentication(); //鉴权，检测有没有登陆，登录的是谁，赋值给User
+
+            app.UseAuthorization(); //授权，检测权限
 
             app.UseEndpoints(endpoints =>
             {
