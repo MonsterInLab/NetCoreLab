@@ -17,6 +17,10 @@ using System.Drawing;
 using Center.Web.Utility.WebHelper;
 using System.IO;
 using System.Drawing.Imaging;
+using Data.EFCCore31;
+using Data.EFCCore31.Models;
+using Company = Data.EFCCore31.Models.Company;
+using User = Data.EFCCore31.Models.User;
 
 namespace Center.Web.Controllers
 {
@@ -72,11 +76,12 @@ namespace Center.Web.Controllers
         /// <returns></returns>
         public IActionResult Index()
         {
-            //using (JDDbContext context = new JDDbContext())
-            //{
-            //    var user = context.Set<User>().First(u => u.Id > 1);
-            //    base.ViewBag.UserName = user.Name;
-            //}
+            using (AppDbContext context = new AppDbContext())
+            {
+                var COMPANY = context.Set<Company>().First(u => u.Id > 0);
+                var user = context.Set<User>().First(u => u.Id > 0);
+                base.ViewBag.UserName = user.Name;
+            }
 
             //var user = this._dbContext.Set<User>().First(u => u.Id > 1);
             //base.ViewBag.UserName = user.Name;
@@ -90,8 +95,8 @@ namespace Center.Web.Controllers
             //    base.ViewBag.UserList1 = userList1;
             //}//对象是构造函数注入  和方法内获取的生命周期是不一样的
 
-           // var userList = this._iUserService.QueryPage<User, int>(u => u.Id > 1, 5, 1, u => u.Id);
-          //  base.ViewBag.UserList = userList.DataList;
+            // var userList = this._iUserService.QueryPage<User, int>(u => u.Id > 1, 5, 1, u => u.Id);
+            //  base.ViewBag.UserList = userList.DataList;
 
             return View();
         }

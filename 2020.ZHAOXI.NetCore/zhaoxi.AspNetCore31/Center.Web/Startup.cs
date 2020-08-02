@@ -91,6 +91,13 @@ namespace Center.Web
             //    return new RequestDelegate(
             //        async context =>
             //        {
+            //            //await context.Response.WriteAsync("This is Hello World 1 start");
+            //            context.Response.OnStarting(state =>
+            //            {
+            //                var httpContext = (HttpContext)state;
+            //                httpContext.Response.Headers.Add("middleware", "12345");
+            //                return Task.CompletedTask;
+            //            }, context);
             //            await context.Response.WriteAsync("This IS Hello word 1 start<br/>");
             //            await next.Invoke(context);
             //            await context.Response.WriteAsync("This is hello word 1 end<br/>");

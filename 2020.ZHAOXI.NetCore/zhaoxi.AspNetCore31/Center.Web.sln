@@ -13,7 +13,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Center.Service", "Center.Se
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "RM.IOCTest", "RM.IOCTest", "{2DB059FF-D3C0-4657-BCFD-0D5147491B90}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Center.EntityFrameworkCore31.Model", "Center.EntityFrameworkCore31.Model\Center.EntityFrameworkCore31.Model.csproj", "{4826D4F7-EA51-41C2-8578-59FAA93DC06D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Center.EntityFrameworkCore31.Model", "Center.EntityFrameworkCore31.Model\Center.EntityFrameworkCore31.Model.csproj", "{4826D4F7-EA51-41C2-8578-59FAA93DC06D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Data.EFCCore31", "Data.EFCCore31\Data.EFCCore31.csproj", "{132F56A5-EA54-4A0C-AD1F-399ACC3DC386}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -41,6 +43,10 @@ Global
 		{4826D4F7-EA51-41C2-8578-59FAA93DC06D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4826D4F7-EA51-41C2-8578-59FAA93DC06D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4826D4F7-EA51-41C2-8578-59FAA93DC06D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{132F56A5-EA54-4A0C-AD1F-399ACC3DC386}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{132F56A5-EA54-4A0C-AD1F-399ACC3DC386}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{132F56A5-EA54-4A0C-AD1F-399ACC3DC386}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{132F56A5-EA54-4A0C-AD1F-399ACC3DC386}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
