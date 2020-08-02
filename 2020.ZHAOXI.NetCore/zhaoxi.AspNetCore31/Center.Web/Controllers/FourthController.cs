@@ -21,6 +21,7 @@ using Data.EFCCore31;
 using Data.EFCCore31.Models;
 using Company = Data.EFCCore31.Models.Company;
 using User = Data.EFCCore31.Models.User;
+using Microsoft.EntityFrameworkCore;
 
 namespace Center.Web.Controllers
 {
@@ -40,7 +41,8 @@ namespace Center.Web.Controllers
         private readonly IServiceProvider _iServiceProvider;
         private readonly IConfiguration _iConfiguration;
 
-        //private readonly DbContext _dbContext;
+
+        private readonly DbContext _dbContext;
         private readonly IUserService _iUserService;
 
         public FourthController(ILogger<FourthController> logger,
@@ -52,7 +54,8 @@ namespace Center.Web.Controllers
             , ITestServiceE testServiceE
             , IServiceProvider serviceProvider
             , IConfiguration configuration
-            //, IUserService userService
+            , IUserService userService
+            , DbContext dbContext
             )
         //, DbContext dbContext)
         {
@@ -65,8 +68,8 @@ namespace Center.Web.Controllers
             this._iTestServiceE = testServiceE;
             this._iServiceProvider = serviceProvider;
             this._iConfiguration = configuration;
-            //this._dbContext = dbContext;
-           // this._iUserService = userService;
+            this._dbContext = dbContext;
+            this._iUserService = userService;
         }
         #endregion
 
@@ -76,27 +79,37 @@ namespace Center.Web.Controllers
         /// <returns></returns>
         public IActionResult Index()
         {
-            using (AppDbContext context = new AppDbContext())
-            {
-                var COMPANY = context.Set<Company>().First(u => u.Id > 0);
-                var user = context.Set<User>().First(u => u.Id > 0);
-                base.ViewBag.UserName = user.Name;
-            }
+            //using (AppDbContext context = new AppDbContext())
+            //{
+            //    var COMPANY = context.Set<Company>().First(u => u.Id > 0);
+            //    var user = context.Set<User>().First(u => u.Id > 0);
+            //    base.ViewBag.UserName = user.Name;
+            //}
 
-            //var user = this._dbContext.Set<User>().First(u => u.Id > 1);
+            //var COMPANY = this._dbContext.Set<Company>().First(u => u.Id > 0);
+            //var user = this._dbContext.Set<User>().First(u => u.Id > 0);
             //base.ViewBag.UserName = user.Name;
 
-            //var userList = this._dbContext.Set<User>().Where(u => u.Id > 1).OrderBy(u => u.Id).Skip(1).Take(5);
-            //base.ViewBag.UserList = userList;
+            {
+                //var user = this._dbContext.Set<User>().First(u => u.Id > 1);
+                //base.ViewBag.UserName = user.Name;
 
-            //using (JDDbContext context = new JDDbContext())
-            //{
-            //    var userList1 = context.Set<User>().Where(u => u.Id > 1).OrderBy(u => u.Id).Skip(1).Take(5);
-            //    base.ViewBag.UserList1 = userList1;
-            //}//对象是构造函数注入  和方法内获取的生命周期是不一样的
+                //var userList = this._dbContext.Set<User>().Where(u => u.Id > 1).OrderBy(u => u.Id).Skip(1).Take(5);
+                //base.ViewBag.UserList = userList;
 
-            // var userList = this._iUserService.QueryPage<User, int>(u => u.Id > 1, 5, 1, u => u.Id);
-            //  base.ViewBag.UserList = userList.DataList;
+                //using (JDDbContext context = new JDDbContext())
+                //{
+                //    var userList1 = context.Set<User>().Where(u => u.Id > 1).OrderBy(u => u.Id).Skip(1).Take(5);
+                //    base.ViewBag.UserList1 = userList1;
+                //}//对象是构造函数注入  和方法内获取的生命周期是不一样的
+
+                // var userList = this._iUserService.QueryPage<User, int>(u => u.Id > 1, 5, 1, u => u.Id);
+                //  base.ViewBag.UserList = userList.DataList;
+            }
+
+            var userList = this._iUserService.QueryPage<User, int>(u => u.Id > 0, 5, 1, u => u.Id);
+            var user2 = userList.DataList.FirstOrDefault();
+            base.ViewBag.UserName = user2.Name;
 
             return View();
         }

@@ -18,7 +18,8 @@ using Center.Interface;
 using Center.Service;
 using Autofac;
 using Microsoft.AspNetCore.Authentication.Cookies;
-
+using Data.EFCCore31;
+using Microsoft.EntityFrameworkCore;
 
 namespace Center.Web
 {
@@ -58,10 +59,31 @@ namespace Center.Web
             services.AddSingleton<ITestServiceB, TestServiceB>(); //单例
             services.AddScoped<ITestServiceC, TestServiceC>();    //作用域
             services.AddTransient<ITestServiceD, TestServiceD>();
-          //  services.AddTransient<ITestServiceE, TestServiceE>();
+            //  services.AddTransient<ITestServiceE, TestServiceE>();
+
+            #region  DbContext IOC
+            //读取连接字符串
+            services.AddScoped<DbContext, AppDbContext>();
+
+            // User Service
+            services.AddScoped<IUserService, UserService>();
+
+            //services.AddEntityFrameworkSqlServer()
+            //    .AddDbContext<AppDbContext>(option =>
+            //    {
+            //        option.UseSqlServer(Configuration.GetConnectionString("JDDbConnection")); //读取连接字符串
+            //    });
+
+            //services.AddDbContext<AppDbContext>(options =>
+            //{
+            //    options.UseSqlServer(Configuration.GetConnectionString("JDDbConnection"));
+            //});
+
+            #endregion
+
         }
 
-        
+
         //Autofac 容器注册服务
         public void ConfigureContainer(ContainerBuilder containerBuilder)
         {
