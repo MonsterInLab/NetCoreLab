@@ -95,5 +95,21 @@ namespace Center.Web.Controllers
             return View();
         }
 
+        public IActionResult UserList()
+        {
+            ViewBag.Now = DateTime.Now;
+            Thread.Sleep(2000);
+            return View();
+        }
+
+        public IActionResult SaveUser()
+        {
+            ViewBag.Now = DateTime.Now;
+            Thread.Sleep(2000);
+            return View();
+        }
+
+
+
     }
 }

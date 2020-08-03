@@ -7,10 +7,12 @@ namespace Center.Interface
 {
     public  interface IUserService : IBaseService
     {
-        //void Query();
-        //void Update();
-        //void Delete();
-        //void Add();
+        User GetUserByID(int id);
+        PageResult<User> GetUserList(int pageSize, int pageIndex);
+
+        void Update(User user);
+        void Delete(int id);
+        bool Add(User user);
 
         void UpdateLastLogin(User user);
     }

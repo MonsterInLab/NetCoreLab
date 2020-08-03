@@ -19,24 +19,39 @@ namespace Center.Service
             userDB.LastLoginTime = DateTime.Now;
             this.Commit();
         }
-        //public void Add()
-        //{
-        //    throw new NotImplementedException();
-        //}
+        public bool Add(User user)
+        {
+            var u = base.Insert<User>(user);
+            return u.Id > 0;
+        }
 
-        //public void Delete()
-        //{
-        //    throw new NotImplementedException();
-        //}
+        public void Delete(int id)
+        {
+            base.Delete<User>(id);
+        }
 
-        //public void Query()
-        //{
-        //    throw new NotImplementedException();
-        //}
 
-        //public void Update()
-        //{
-        //    throw new NotImplementedException();
-        //}
+        public void Update(User user)
+        {
+            base.Update<User>(user);
+        }
+
+        #region Query
+        public User GetUserByID(int id)
+        {
+            User userDB = base.Find<User>(id);
+         //   var userList = this._iUserService.QueryPage<User, int>(u => u.Id > 0, 5, 1, u => u.Id);
+            return userDB;
+        }
+
+        public PageResult<User> GetUserList(int pageSize,int pageIndex)
+        {
+            var userList = base.QueryPage<User, int>(u => u.Id > 0, pageSize, pageIndex, u => u.Id);
+
+            return userList;
+        }
+
+
+        #endregion
     }
 }
