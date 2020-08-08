@@ -9,7 +9,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Center.EntityFrameworkCore31.Model\Center.EntityFrameworkCore31.Model.csproj" />
+    <ProjectReference Include="..\Data.EFCCore31\Data.EFCCore31.csproj" />
   </ItemGroup>
 
 </Project>

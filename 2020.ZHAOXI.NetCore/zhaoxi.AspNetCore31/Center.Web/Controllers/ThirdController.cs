@@ -5,8 +5,10 @@ using System.Threading;
 using System.Threading.Tasks;
 using Center.Interface;
 using Center.Web.Utility;
+using Data.EFCCore31.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore.Query;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
@@ -28,6 +30,7 @@ namespace Center.Web.Controllers
         private readonly ITestServiceE _iTestServiceE;
         private readonly IServiceProvider _iServiceProvider;
         private readonly IConfiguration _configuration;
+        private readonly IUserService _iUserService;
 
         public ThirdController(ILogger<ThirdController> logger,
             ILoggerFactory loggerFactory,
@@ -37,7 +40,8 @@ namespace Center.Web.Controllers
             ITestServiceD testServiceD,
             ITestServiceE testServiceE,
             IServiceProvider iServiceProvider,
-            IConfiguration configuration
+            IConfiguration configuration,
+            IUserService userService
             )
         {
             _logger = logger;
@@ -49,6 +53,7 @@ namespace Center.Web.Controllers
             this._iTestServiceE = testServiceE;
             this._iServiceProvider = iServiceProvider;
             this._configuration = configuration;
+            this._iUserService = userService;
         }
         #endregion
 
@@ -99,6 +104,9 @@ namespace Center.Web.Controllers
         {
             ViewBag.Now = DateTime.Now;
             Thread.Sleep(2000);
+
+            this._iUserService.Query<User>(o => o.Id > 0).ToList();
+
             return View();
         }
 

@@ -59,7 +59,8 @@ namespace Center.Web
             services.AddSingleton<ITestServiceB, TestServiceB>(); //单例
             services.AddScoped<ITestServiceC, TestServiceC>();    //作用域
             services.AddTransient<ITestServiceD, TestServiceD>();
-            //  services.AddTransient<ITestServiceE, TestServiceE>();
+
+            services.AddTransient<ICompanyService, CompanyService>();
 
             #region  DbContext IOC
             //读取连接字符串
@@ -78,8 +79,10 @@ namespace Center.Web
             //{
             //    options.UseSqlServer(Configuration.GetConnectionString("JDDbConnection"));
             //});
-
             #endregion
+
+            // Register the Swagger generator, defining 1 or more Swagger documents
+            services.AddSwaggerGen();
 
         }
 
@@ -207,6 +210,16 @@ namespace Center.Web
             app.UseStaticFiles(new StaticFileOptions()
             {
                 FileProvider = new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory(), @"wwwroot"))
+            });
+
+
+            // Enable middleware to serve generated Swagger as a JSON endpoint.
+            app.UseSwagger();
+            // Enable middleware to serve swagger-ui (HTML, JS, CSS, etc.),
+            // specifying the Swagger JSON endpoint.
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
             });
 
             loggerFactory.AddLog4Net();

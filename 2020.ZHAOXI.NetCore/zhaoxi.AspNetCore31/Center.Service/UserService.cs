@@ -1,5 +1,5 @@
-﻿using Center.EntityFrameworkCore31.Model.Model;
-using Center.Interface;
+﻿using Center.Interface;
+using Data.EFCCore31.Models;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;

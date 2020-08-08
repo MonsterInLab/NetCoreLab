@@ -1,4 +1,4 @@
-﻿using Center.EntityFrameworkCore31.Model.Model;
+﻿using Data.EFCCore31.Models;
 using System;
 using System.Collections.Generic;
 using System.Text;

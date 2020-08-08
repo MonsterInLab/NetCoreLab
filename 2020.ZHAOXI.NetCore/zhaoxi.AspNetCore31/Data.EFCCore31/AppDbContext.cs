@@ -40,12 +40,12 @@ namespace Data.EFCCore31
             //    var configuration = builder.Build();
             //    var conn = configuration.GetConnectionString("JDDbConnection");
 
-            //    var connetionString = "Server=.;Database=DB.zhaoxi.demo2;User id=admin;password=123456;Trusted_Connection=True;";
-            //    optionsBuilder.UseSqlServer(connetionString);
+                var connetionString = "Server=.;Database=DB.zhaoxi.demo2;User id=admin;password=123456;Trusted_Connection=True;";
+                optionsBuilder.UseSqlServer(connetionString);
             //}
 
             // IOC
-            optionsBuilder.UseSqlServer(this._configuration.GetConnectionString("JDDbConnection"));
+           // optionsBuilder.UseSqlServer(this._configuration.GetConnectionString("JDDbConnection"));
 
             //optionsBuilder.UseLoggerFactory(this._loggerFactory);
             
@@ -66,6 +66,7 @@ namespace Data.EFCCore31
         public virtual DbSet<SysUserMenuMapping> SysUserMenuMappings { get; set; }
         public virtual DbSet<SysUserRoleMapping> SysUserRoleMappings { get; set; }
         public virtual DbSet<User> Users { get; set; }
+        public virtual DbSet<Command> Commands { get; set; }
         #endregion
 
     }
