@@ -6,6 +6,7 @@ using Center.Interface;
 using Data.EFCCore31.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 
 namespace Center.Web.Areas.WebAPI.Controllers
 {
@@ -14,20 +15,25 @@ namespace Center.Web.Areas.WebAPI.Controllers
     public class CompanyController : ControllerBase
     {
         private readonly ICompanyService _iCompanyService;
+        private readonly ILogger<CompanyController> _logger;
 
-        public CompanyController(ICompanyService companyService)
+        public CompanyController(ILogger<CompanyController> logger, 
+            ICompanyService companyService)
         {
             this._iCompanyService = companyService;
+            this._logger = logger;
         }
 
 
         [HttpGet]
-        public ActionResult <IEnumerable<Company>> GetCompanies()
+        [Route("GetCompanies")]
+        public ActionResult <IEnumerable<Company>> GetCompanies(int pageIndex,int pageSize)
         {
-            var pageIndex = 1;
-            var pageSize = 10;
+            this._logger.LogWarning("This is api  CompanyController.GetCompanies");
+
             var data = this._iCompanyService.GetCompanyList(pageSize, pageIndex);
-            return Ok(data.DataList);
+           // return Ok(Newtonsoft.Json.JsonConvert.SerializeObject(data.DataList));
+            return Ok(data);
         }
 
         [HttpGet("{id}")]

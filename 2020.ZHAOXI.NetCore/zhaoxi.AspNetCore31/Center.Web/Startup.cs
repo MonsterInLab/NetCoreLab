@@ -61,6 +61,7 @@ namespace Center.Web
             services.AddTransient<ITestServiceD, TestServiceD>();
 
             services.AddTransient<ICompanyService, CompanyService>();
+            services.AddTransient<IJWTService, JWTService>();
 
             #region  DbContext IOC
             //¶ÁÈ¡Á¬½Ó×Ö·û´®
