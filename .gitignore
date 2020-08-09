@@ -23,3 +23,7 @@
 /2020.ZHAOXI.NetCore/zhaoxi.AspNetCore31/Center.EntityFrameworkCore31.Model
 /2020.ZHAOXI.NetCore/zhaoxi.AspNetCore31/Data.EFCCore31/bin/Debug/netcoreapp3.1
 /2020.ZHAOXI.NetCore/zhaoxi.AspNetCore31/Data.EFCCore31/obj
+/2020.ZHAOXI.NetCore/zhaoxi.AspNetCore31/Center.Web.Authentication/bin/Debug/netcoreapp3.1
+/2020.ZHAOXI.NetCore/zhaoxi.AspNetCore31/Center.Web.Authentication/obj
+/2020.ZHAOXI.NetCore/zhaoxi.AspNetCore31/Center.WebAPI/bin/Debug/netcoreapp3.1
+/2020.ZHAOXI.NetCore/zhaoxi.AspNetCore31/Center.WebAPI/obj

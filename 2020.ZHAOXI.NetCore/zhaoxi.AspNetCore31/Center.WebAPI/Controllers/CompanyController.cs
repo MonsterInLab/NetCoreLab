@@ -10,7 +10,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
-namespace Center.Web.Areas.WebAPI.Controllers
+namespace Center.WebAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
@@ -29,6 +29,7 @@ namespace Center.Web.Areas.WebAPI.Controllers
 
         [HttpGet]
         [Route("GetCompanies")]
+        [Authorize]
         public ActionResult <IEnumerable<Company>> GetCompanies(int pageIndex,int pageSize)
         {
             this._logger.LogWarning("This is api  CompanyController.GetCompanies");

@@ -126,12 +126,12 @@ namespace Center.Web.Controllers
             string verifyCode = base.HttpContext.Session.GetString("CheckCode");
             if (verifyCode != null && verifyCode.Equals(verify, StringComparison.CurrentCultureIgnoreCase))
             {
-                if ("Eleven".Equals(name) && "123456".Equals(password))
+                if ("stone".Equals(name) && "123456".Equals(password))
                 {
                     CurrentUser currentUser = new CurrentUser()
                     {
                         Id = 123,
-                        Name = "Eleven",
+                        Name = "stone",
                         Account = "Administrator",
                         Email = "57265177",
                         Password = "123456",
