@@ -50,6 +50,9 @@ namespace Center.Web.Utility
     {
         public override void OnActionExecuted(ActionExecutedContext context)
         {
+            //设置 服务端 允许跨域访问
+            context.HttpContext.Response.Headers.Add("Access-Control-Allow-Origin", "*");
+            
             Console.WriteLine($"This {nameof(CustomGlobalFilterAttribute)} OnActionExecuted{this.Order}");
         }
         public override void OnActionExecuting(ActionExecutingContext context)
