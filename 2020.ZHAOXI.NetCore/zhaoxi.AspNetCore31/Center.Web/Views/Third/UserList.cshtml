@@ -5,3 +5,25 @@
 
 <h1>UserList</h1>
 
+<input type="button" id="btnGet1" value="Get1" />
+
+@section Scripts
+{
+    <script>
+
+        $(function () {
+
+            $("#btnGet1").on("click", function () {//单个参数
+                $.ajax({
+                    url: "/api/users/GetUserByID", type: "get", data: { "id": "6" }, success: function (data) {
+
+                        alert(data);
+                        console.log(data);
+                    }, datatype: "json"
+                });
+            });
+
+        })
+
+    </script>
+}

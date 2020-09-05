@@ -77,7 +77,7 @@ namespace Center.WebAPI.Controllers
         [HttpGet]
         public Users GetUserByID(int id)
         {
-            base.HttpContext.Response.Headers.Add("Access-Control-Allow-Origin", "*");//允许跨域
+         //   base.HttpContext.Response.Headers.Add("Access-Control-Allow-Origin", "*");//允许跨域
             string idParam = base.HttpContext.Request.Query["id"];
             var user = this._iUserService.Query<User>(u => u.Id == id).Select(u => new Users()
             {

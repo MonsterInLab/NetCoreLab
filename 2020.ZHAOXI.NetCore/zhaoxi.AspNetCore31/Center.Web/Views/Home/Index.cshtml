@@ -6,3 +6,36 @@
     <h1 class="display-4">Welcome</h1>
     <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
 </div>
+
+
+<input type="button" id="btnGet1" value="Get1" />
+
+<input type="button" id="btnGetCors1" value="跨域Get1" />
+
+@section Scripts
+{
+    <script>
+
+        $(function () {
+
+            $("#btnGet1").on("click", function () {//单个参数
+                $.ajax({
+                    url: "/api/users/GetUserByID", type: "get", data: { "id": "6" }, success: function (data) {
+
+                        alert(data);
+                        console.log(data);
+                    }, datatype: "json"
+                });
+            });
+
+            //microsoft.aspnet.webapi.cors
+            jQuery.support.cors = true;
+            var location = "http://localhost:5178";
+            $("#btnGetCors1").on("click", function () {
+                $.ajax({ url: location + "/api/users/GetUserByID", type: "get", data: { "id": 6 }, success: function (data) { alert(data); }, datatype: "json" });
+            });
+
+        })
+
+    </script>
+}

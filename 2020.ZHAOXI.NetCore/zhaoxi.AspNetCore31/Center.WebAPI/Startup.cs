@@ -62,14 +62,14 @@ namespace Center.WebAPI
             // Register the Swagger generator, defining 1 or more Swagger documents
             services.AddSwaggerGen();
 
-            services.AddControllers();
+          //  services.AddControllers();
 
             //全局注册异常处理,允许跨域
-            //services.AddControllers(
-            //    options =>
-            //    {
-            //        options.Filters.Add<CustomGlobalFilterAttribute>();//全局注册异常处理,允许跨域
-            //    });
+            services.AddControllers(
+                options =>
+                {
+                    options.Filters.Add<CustomGlobalFilterAttribute>();//全局注册异常处理,允许跨域
+                });
 
 
             services.AddTransient<ICompanyService, CompanyService>();
