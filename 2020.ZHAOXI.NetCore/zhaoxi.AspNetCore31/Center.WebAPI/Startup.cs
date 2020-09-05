@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Center.Interface;
 using Center.Service;
+using Center.WebAPI.Utility;
 using Data.EFCCore31;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
@@ -58,7 +59,18 @@ namespace Center.WebAPI
                      });
             #endregion
 
+            // Register the Swagger generator, defining 1 or more Swagger documents
+            services.AddSwaggerGen();
+
             services.AddControllers();
+
+            //全局注册异常处理,允许跨域
+            //services.AddControllers(
+            //    options =>
+            //    {
+            //        options.Filters.Add<CustomGlobalFilterAttribute>();//全局注册异常处理,允许跨域
+            //    });
+
 
             services.AddTransient<ICompanyService, CompanyService>();
 
@@ -80,6 +92,9 @@ namespace Center.WebAPI
             //    options.UseSqlServer(Configuration.GetConnectionString("JDDbConnection"));
             //});
             #endregion
+
+
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -92,6 +107,16 @@ namespace Center.WebAPI
 
             loggerFactory.AddLog4Net();
 
+            #region Use Swagger
+            // Enable middleware to serve generated Swagger as a JSON endpoint.
+            app.UseSwagger();
+            // Enable middleware to serve swagger-ui (HTML, JS, CSS, etc.),
+            // specifying the Swagger JSON endpoint.
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
+            });
+            #endregion
 
             app.UseRouting();
 
