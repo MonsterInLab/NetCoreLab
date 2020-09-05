@@ -125,10 +125,18 @@ namespace Center.WebAPI
 
             app.UseAuthorization();
 
+            Console.WriteLine(this.Configuration["ip"]);
+            Console.WriteLine(this.Configuration["port"]);
+
+
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
             });
+
+            // Consul注册
+            //实例启动时执行，且只执行一次
+            this.Configuration.ConsulRegist();
         }
     }
 }

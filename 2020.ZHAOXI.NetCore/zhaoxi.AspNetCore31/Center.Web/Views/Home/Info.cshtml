@@ -1,0 +1,16 @@
+﻿@{
+    ViewData["Title"] = "Info";
+}
+
+
+<h1>Info</h1>
+
+<h3>@base.ViewBag.Url</h3>
+@foreach (var user in base.ViewBag.Users)
+{
+    <h4>********************</h4>
+    <h4>@user.UserID</h4>
+    <h4>@user.UserName</h4>
+    <h4>@user.UserEmail</h4>
+}
+<h3>@base.ViewBag.Message</h3>
