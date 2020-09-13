@@ -21,7 +21,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Center.Web.Authentication",
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Data.Access", "Data.Access", "{BE1A1B03-30D3-490D-B7E8-98A1C9A6F005}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Center.MicroServiceGateway", "Center.MicroServiceGateway\Center.MicroServiceGateway.csproj", "{9DDE7647-2F51-4C0F-92C7-BCC09C2DEB15}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Center.MicroServiceGateway", "Center.MicroServiceGateway\Center.MicroServiceGateway.csproj", "{9DDE7647-2F51-4C0F-92C7-BCC09C2DEB15}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Center.Web.AuthDemo", "Center.Web.AuthDemo\Center.Web.AuthDemo.csproj", "{43A6D9B7-709B-47A5-AF5F-514984B5663A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -61,6 +63,10 @@ Global
 		{9DDE7647-2F51-4C0F-92C7-BCC09C2DEB15}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9DDE7647-2F51-4C0F-92C7-BCC09C2DEB15}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9DDE7647-2F51-4C0F-92C7-BCC09C2DEB15}.Release|Any CPU.Build.0 = Release|Any CPU
+		{43A6D9B7-709B-47A5-AF5F-514984B5663A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{43A6D9B7-709B-47A5-AF5F-514984B5663A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{43A6D9B7-709B-47A5-AF5F-514984B5663A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{43A6D9B7-709B-47A5-AF5F-514984B5663A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

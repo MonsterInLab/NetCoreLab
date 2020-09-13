@@ -30,3 +30,6 @@
 /2020.ZHAOXI.NetCore/zhaoxi.AspNetCore31/Center.WebAPI/log
 /2020.ZHAOXI.NetCore/zhaoxi.AspNetCore31/Center.MicroServiceGateway/bin/Debug/netcoreapp3.1
 /2020.ZHAOXI.NetCore/zhaoxi.AspNetCore31/Center.MicroServiceGateway/obj
+/2020.ZHAOXI.NetCore/zhaoxi.AspNetCore31/Center.Web.AuthDemo/bin/Debug/netcoreapp3.1
+/2020.ZHAOXI.NetCore/zhaoxi.AspNetCore31/Center.Web.AuthDemo/obj
+/2020.ZHAOXI.NetCore/zhaoxi.AspNetCore31/Center.Web.AuthDemo/wwwroot/lib
