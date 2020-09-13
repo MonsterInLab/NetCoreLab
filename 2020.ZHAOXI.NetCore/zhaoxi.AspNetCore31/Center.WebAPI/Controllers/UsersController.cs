@@ -73,6 +73,14 @@ namespace Center.WebAPI.Controllers
             return users;
         }
 
+        [HttpGet]
+        public IEnumerable<Users> GetException()
+        {
+            this._logger.LogError($"{DateTime.Now.ToShortTimeString()}- {this.GetType()} GetException.....");
+            throw new Exception();
+
+        }
+
         // GET api/Users/5
         [HttpGet]
         public Users GetUserByID(int id)
