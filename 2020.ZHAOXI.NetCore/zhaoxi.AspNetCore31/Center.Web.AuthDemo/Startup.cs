@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using Center.Web.AuthDemo.Utility;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -29,8 +30,8 @@ namespace Center.Web.AuthDemo
 
 
             #region Filter方式
-            services.AddAuthentication()
-            .AddCookie();
+            //services.AddAuthentication()
+            //.AddCookie();
             #endregion
 
 
@@ -40,6 +41,14 @@ namespace Center.Web.AuthDemo
             //    options.DefaultAuthenticateScheme = CookieAuthenticationDefaults.AuthenticationScheme;
             //})
             //.AddCookie();
+            #endregion
+
+            #region 最基础认证--自定义Handler
+            services.AddAuthenticationCore();
+            services.AddAuthentication().AddCookie();
+            services.AddAuthenticationCore(options => 
+                 options.AddScheme<CustomAuthenticationHandler>("CustomScheme.ZX", "DemoScheme.ZX")
+            );
             #endregion
 
             services.AddControllersWithViews();

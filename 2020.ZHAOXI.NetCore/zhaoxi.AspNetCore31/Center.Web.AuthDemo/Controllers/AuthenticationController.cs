@@ -20,14 +20,14 @@ namespace Center.Web.AuthDemo.Controllers
             //base.HttpContext.RequestServices.
             //IAuthenticationService
 
-            if ("Eleven".Equals(name, StringComparison.CurrentCultureIgnoreCase)
+            if ("stone".Equals(name, StringComparison.CurrentCultureIgnoreCase)
                 && password.Equals("123456"))
             {
                 var claimIdentity = new ClaimsIdentity("Custom");
                 claimIdentity.AddClaim(new Claim(ClaimTypes.Name, name));
                 claimIdentity.AddClaim(new Claim(ClaimTypes.Email, "xuyang@ZhaoxiEdu.Net"));
                 //claimIdentity.IsAuthenticated = true;
-                await base.HttpContext.SignInAsync("CustomScheme", new ClaimsPrincipal(claimIdentity), new AuthenticationProperties
+                await base.HttpContext.SignInAsync("CustomScheme.ZX", new ClaimsPrincipal(claimIdentity), new AuthenticationProperties
                 {
                     ExpiresUtc = DateTime.UtcNow.AddMinutes(30),
                 });
@@ -47,5 +47,86 @@ namespace Center.Web.AuthDemo.Controllers
                 });
             }
         }
+
+        public async Task<IActionResult> Logut()
+        {
+            await base.HttpContext.SignOutAsync("CustomScheme.ZX");
+            return new JsonResult(new
+            {
+                Result = true,
+                Message = "推出成功"
+            });
+        }
+
+        public async Task<IActionResult> Authentication()
+        {
+            var result = await base.HttpContext.AuthenticateAsync("CustomScheme.ZX");
+            if(result?.Principal != null)
+            {
+                base.HttpContext.User = result.Principal;
+                return new JsonResult(new { 
+                    Result = true,
+                    Message = $"认证成功，包含用户{base.HttpContext.User.Identity.Name}"
+                });
+            }
+            else
+            {
+                return new JsonResult(new
+                {
+                    Result = true,
+                    Message = $"认证失败，用户未登录"
+                });
+            }
+        }
+
+        public async Task<IActionResult> Authorization()
+        {
+            var result = await base.HttpContext.AuthenticateAsync("CustomScheme.ZX");
+            if (result?.Principal == null)
+            {
+                return new JsonResult(new
+                {
+                    Result = true,
+                    Message = $"认证失败，用户未登录"
+                });
+            }
+            else
+            {
+                base.HttpContext.User = result.Principal;
+            }
+
+            //授权
+            var user = base.HttpContext.User;
+            if (user?.Identity?.IsAuthenticated ?? false)
+            {
+                if (!user.Identity.Name.Equals("stone", StringComparison.OrdinalIgnoreCase))
+                {
+                    await base.HttpContext.ForbidAsync("CustomScheme.ZX");
+                    return new JsonResult(new
+                    {
+                        Result = false,
+                        Message = $"授权失败，用户{base.HttpContext.User.Identity.Name}没有权限"
+                    });
+                }
+                else
+                {
+                    return new JsonResult(new
+                    {
+                        Result = false,
+                        Message = $"授权成功，用户{base.HttpContext.User.Identity.Name}具备权限"
+                    });
+                }
+            }
+            else
+            {
+                await base.HttpContext.ChallengeAsync("CustomScheme.ZX");
+                return new JsonResult(new
+                {
+                    Result = false,
+                    Message = $"授权失败，没有登录"
+                });
+            }
+        }
+
     }
 }

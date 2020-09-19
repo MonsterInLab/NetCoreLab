@@ -27,6 +27,12 @@ namespace Center.Web.AuthDemo.Controllers
             return View();
         }
 
+        /// <summary>
+        /// 基于cookie 实现登录
+        /// </summary>
+        /// <param name="name"></param>
+        /// <param name="password"></param>
+        /// <returns></returns>
         [AllowAnonymous]
         public IActionResult Login(string name, string password)
         {
@@ -35,6 +41,12 @@ namespace Center.Web.AuthDemo.Controllers
             {
                 #region Filter
                 base.HttpContext.Response.Cookies.Append("CurrentUser", "Stone", new Microsoft.AspNetCore.Http.CookieOptions()
+                {
+                    Expires = DateTime.UtcNow.AddMinutes(30)
+                });
+
+
+                base.HttpContext.Response.Cookies.Append("User", "stone2", new Microsoft.AspNetCore.Http.CookieOptions()
                 {
                     Expires = DateTime.UtcNow.AddMinutes(30)
                 });
