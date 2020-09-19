@@ -6,9 +6,12 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Center.Web.AuthDemo.Models;
+using Microsoft.AspNetCore.Authorization;
+using Center.Web.AuthDemo.Utility;
 
 namespace Center.Web.AuthDemo.Controllers
 {
+    [CustomAuthorizationFilter]
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
@@ -18,9 +21,39 @@ namespace Center.Web.AuthDemo.Controllers
             _logger = logger;
         }
 
+        [AllowAnonymous]
         public IActionResult Index()
         {
             return View();
+        }
+
+        [AllowAnonymous]
+        public IActionResult Login(string name, string password)
+        {
+            if ("Stone".Equals(name, StringComparison.CurrentCultureIgnoreCase)
+                 && password.Equals("123456"))
+            {
+                #region Filter
+                base.HttpContext.Response.Cookies.Append("CurrentUser", "Stone", new Microsoft.AspNetCore.Http.CookieOptions()
+                {
+                    Expires = DateTime.UtcNow.AddMinutes(30)
+                });
+                #endregion
+
+                return new JsonResult(new
+                {
+                    Result = true,
+                    Message = "登录成功"
+                });
+            }
+            else
+            {
+                return new JsonResult(new
+                {
+                    Result = false,
+                    Message = "登录失败"
+                });
+            }
         }
 
         public IActionResult Privacy()

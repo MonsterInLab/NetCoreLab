@@ -1,12 +1,15 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.Hosting;
 
 namespace Center.Web.AuthDemo
@@ -23,6 +26,22 @@ namespace Center.Web.AuthDemo
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+
+
+            #region Filter方式
+            services.AddAuthentication()
+            .AddCookie();
+            #endregion
+
+
+            #region Authorize
+            //services.AddAuthentication(options =>
+            //{
+            //    options.DefaultAuthenticateScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+            //})
+            //.AddCookie();
+            #endregion
+
             services.AddControllersWithViews();
         }
 
@@ -40,11 +59,17 @@ namespace Center.Web.AuthDemo
                 app.UseHsts();
             }
             app.UseHttpsRedirection();
-            app.UseStaticFiles();
+          //  app.UseStaticFiles();
+            app.UseStaticFiles(new StaticFileOptions()
+            {
+                FileProvider = new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory(), @"wwwroot"))
+            });
 
             app.UseRouting();
+            
+            // Authentication 鉴权  是否登录
 
-            app.UseAuthorization();
+            app.UseAuthorization(); //授权  -- 角色权限
 
             app.UseEndpoints(endpoints =>
             {

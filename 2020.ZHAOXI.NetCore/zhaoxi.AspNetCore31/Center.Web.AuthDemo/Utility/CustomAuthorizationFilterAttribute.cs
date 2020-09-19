@@ -8,6 +8,10 @@ using System.Threading.Tasks;
 
 namespace Center.Web.AuthDemo.Utility
 {
+    /// <summary>
+    /// IAuthorizationFilter： 请求刚进入MVC流程
+    /// OnAuthorization 完成过登录校验--以及权限检查
+    /// </summary>
     public class CustomAuthorizationFilterAttribute : Attribute, IAuthorizationFilter
     {
         public void OnAuthorization(AuthorizationFilterContext context)
