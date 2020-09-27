@@ -44,12 +44,56 @@ namespace Center.Web.AuthDemo
             #endregion
 
             #region 最基础认证--自定义Handler
-            services.AddAuthenticationCore();
-            services.AddAuthentication().AddCookie();
-            services.AddAuthenticationCore(options => 
-                 options.AddScheme<CustomAuthenticationHandler>("CustomScheme.ZX", "DemoScheme.ZX")
-            );
+            //services.AddAuthenticationCore();
+            //services.AddAuthentication().AddCookie();
+            //services.AddAuthenticationCore(options => 
+            //     options.AddScheme<CustomAuthenticationHandler>("CustomScheme.ZX", "DemoScheme.ZX")
+            //);
             #endregion
+
+            #region 基于Cookie
+            //services.AddScoped<ITicketStore, MemoryCacheTicketStore>();
+            //services.AddMemoryCache();
+            ////services.AddDistributedRedisCache(options =>
+            ////{
+            ////    options.Configuration = "127.0.0.1:6379";
+            ////    options.InstanceName = "RedisDistributedSession";
+            ////});
+            
+            services.AddAuthentication(options =>
+            {
+                options.DefaultAuthenticateScheme = CookieAuthenticationDefaults.AuthenticationScheme;//不能少
+                options.DefaultSignInScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+                options.DefaultChallengeScheme = "Cookie/Login";
+            })
+            .AddCookie(options =>
+            {
+                ////信息存在服务端--把key写入cookie--类似session
+                //options.SessionStore = services.BuildServiceProvider().GetService<ITicketStore>();
+                //options.Events = new CookieAuthenticationEvents()
+                //{
+                //    OnSignedIn = new Func<CookieSignedInContext, Task>(
+                //        async context =>
+                //        {
+                //            Console.WriteLine($"{context.Request.Path} is OnSignedIn");
+                //            await Task.CompletedTask;
+                //        }),
+                //    OnSigningIn = async context =>
+                //    {
+                //        Console.WriteLine($"{context.Request.Path} is OnSigningIn");
+                //        await Task.CompletedTask;
+                //    },
+                //    OnSigningOut = async context =>
+                //    {
+                //        Console.WriteLine($"{context.Request.Path} is OnSigningOut");
+                //        await Task.CompletedTask;
+                //    }
+                //};//扩展事件
+            });
+
+            //new AuthenticationBuilder().AddCookie()
+            #endregion
+
 
             services.AddControllersWithViews();
         }
@@ -75,8 +119,9 @@ namespace Center.Web.AuthDemo
             });
 
             app.UseRouting();
-            
-            // Authentication 鉴权  是否登录
+
+            //Authentication 鉴权  是否登录
+            app.UseAuthentication();
 
             app.UseAuthorization(); //授权  -- 角色权限
 
