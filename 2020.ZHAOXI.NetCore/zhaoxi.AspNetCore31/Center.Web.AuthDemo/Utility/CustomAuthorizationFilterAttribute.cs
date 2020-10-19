@@ -20,6 +20,10 @@ namespace Center.Web.AuthDemo.Utility
             {
                 return;//匿名 不检查
             }
+            if(context.Filters.Any(f=>f is IAllowAnonymous))
+            {
+                return;//匿名 不检查
+            }
 
             string sUser = context.HttpContext.Request.Cookies["CurrentUser"];
 

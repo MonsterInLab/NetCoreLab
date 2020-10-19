@@ -19,14 +19,15 @@ namespace Center.Web.AuthDemo.Controllers
         }
 
         [AllowAnonymous]
-        public async Task<IActionResult> Login(string name, string password, string role = "Admin")
+        public async Task<IActionResult> Login(string name, string password,string email, string role = "Admin")
         {
             if ("stone".Equals(name, StringComparison.CurrentCultureIgnoreCase)
                && password.Equals("123456"))
             {
                 var claimIdentity = new ClaimsIdentity("Custom");
                 claimIdentity.AddClaim(new Claim(ClaimTypes.Name, name));
-                claimIdentity.AddClaim(new Claim(ClaimTypes.Email, "1047284222@qq.com"));
+              //  claimIdentity.AddClaim(new Claim(ClaimTypes.Email, "1047284222@qq.com"));
+                claimIdentity.AddClaim(new Claim(ClaimTypes.Email, email));
                 claimIdentity.AddClaim(new Claim(ClaimTypes.Role, role));
 
                await base.HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(claimIdentity), new AuthenticationProperties

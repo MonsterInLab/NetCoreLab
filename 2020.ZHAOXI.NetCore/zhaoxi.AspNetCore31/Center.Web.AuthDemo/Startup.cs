@@ -6,6 +6,7 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using Center.Web.AuthDemo.Utility;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -28,7 +29,12 @@ namespace Center.Web.AuthDemo
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddControllersWithViews()//反射收集dll-控制器--action--PartManager
+                         .AddNewtonsoftJson();
 
+            //services.AddAuthorization()
+            services.AddAuthorizationCore();
+            //services.AddAuthorizationPolicyEvaluator();
 
             #region Filter方式
             //services.AddAuthentication()
@@ -150,10 +156,10 @@ namespace Center.Web.AuthDemo
 
 
                 //options.AddPolicy("QQEmail", policyBuilder => policyBuilder.Requirements.Add(new QQEmailRequirement()));
-               // options.AddPolicy("DoubleEmail", policyBuilder => policyBuilder.Requirements.Add(new DoubleEmailRequirement()));
+                options.AddPolicy("DoubleEmail", policyBuilder => policyBuilder.Requirements.Add(new DoubleEmailRequirement()));
             });
-           // services.AddSingleton<IAuthorizationHandler, ZhaoxiMailHandler>();
-           // services.AddSingleton<IAuthorizationHandler, QQMailHandler>();
+            services.AddSingleton<IAuthorizationHandler, ZhaoxiMailHandler>();
+            services.AddSingleton<IAuthorizationHandler, QQMailHandler>();
 
 
             #endregion
