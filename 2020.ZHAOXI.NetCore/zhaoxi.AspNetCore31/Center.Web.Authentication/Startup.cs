@@ -34,7 +34,11 @@ namespace Center.Web.Authentication
             //¶ÁÈ¡Á¬½Ó×Ö·û´®
             services.AddScoped<DbContext, AppDbContext>();
 
-            services.AddTransient<IJWTService, JWTService>();
+            #region HS256
+            services.AddScoped<IJWTService, JWTHSService>();
+            services.Configure<JWTTokenOptions>(this.Configuration.GetSection("JWTTokenOptions"));
+            #endregion
+
             services.AddScoped<IUserService, UserService>();
         }
 

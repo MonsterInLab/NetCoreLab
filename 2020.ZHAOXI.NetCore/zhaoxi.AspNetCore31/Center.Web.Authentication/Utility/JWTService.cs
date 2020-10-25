@@ -10,10 +10,10 @@ using System.Threading.Tasks;
 
 namespace Center.Web.Authentication.Utility
 {
-    public interface IJWTService
-    {
-        string GetToken(string UserName);
-    }
+    //public interface IJWTService
+    //{
+    //    string GetToken(string UserName);
+    //}
 
     /// <summary>
     /// 备注下：代码演示的是对称加密，所以只有一个key，在返回的信息里面是没有的
@@ -29,11 +29,11 @@ namespace Center.Web.Authentication.Utility
             _configuration = configuration;
         }
 
-        public string GetToken(string UserName)
+        public string GetToken(CurrentUserModel userModel)
         {
             Claim[] claims = new[]
             {
-               new Claim(ClaimTypes.Name, UserName),
+               new Claim(ClaimTypes.Name, userModel.Name),
                new Claim("NickName","Richard"),
                new Claim("Role","Administrator"),//传递其他信息  
                new Claim("abc","abccc")

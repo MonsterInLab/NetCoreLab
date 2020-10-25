@@ -1,12 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Threading.Tasks;
 using Center.Interface;
 using Center.Web.Authentication.Utility;
+using Center.Web.Authentication.Utility.RSA;
 using Data.EFCCore31.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 
@@ -17,16 +21,19 @@ namespace Center.Web.Authentication.Controllers
     public class AuthenticationController : ControllerBase
     {
         private readonly ILogger<AuthenticationController> _logger;
-        private IJWTService _JWTService = null;
+        private IJWTService _iJWTService = null;
         private readonly IUserService _iUserService;
+        private readonly IConfiguration _iConfiguration;
 
         public AuthenticationController(ILogger<AuthenticationController> logger,
             IUserService userService,
+             IConfiguration configuration,
             IJWTService jWTService)
         {
-            _JWTService = jWTService;
+            _iJWTService = jWTService;
             _logger = logger;
             _iUserService = userService;
+            _iConfiguration = configuration;
         }
 
         [Route("Login")]
@@ -40,7 +47,21 @@ namespace Center.Web.Authentication.Controllers
                 {
                     //这里可以去数据库做验证
                 }
-                string token = this._JWTService.GetToken(name);
+               // string token = this._JWTService.GetToken(name);
+
+                CurrentUserModel currentUser = new CurrentUserModel()
+                {
+                    Id = 123,
+                    Account = "xuyang@zhaoxiEdu.Net",
+                    EMail = "57265177@qq.com",
+                    Mobile = "18664876671",
+                    Sex = 1,
+                    Age = 33,
+                    Name = name,
+                    Role = "Admin"
+                };
+
+                string token = this._iJWTService.GetToken(currentUser);
                 return JsonConvert.SerializeObject(new
                 {
                     result = true,
@@ -68,6 +89,19 @@ namespace Center.Web.Authentication.Controllers
         public IEnumerable<int> Get()
         {
             return new List<int>() { 1, 2, 3, 4, 5, 6 };
+        }
+
+        [Route("GetKey")]
+        [HttpGet]
+        public string GetKey()
+        {
+            string keyDir = Directory.GetCurrentDirectory();
+            if (RSAHelper.TryGetKeyParameters(keyDir, false, out RSAParameters keyParams) == false)
+            {
+                keyParams = RSAHelper.GenerateAndSaveKey(keyDir, false);
+            }
+
+            return JsonConvert.SerializeObject(keyParams);
         }
     }
 }
