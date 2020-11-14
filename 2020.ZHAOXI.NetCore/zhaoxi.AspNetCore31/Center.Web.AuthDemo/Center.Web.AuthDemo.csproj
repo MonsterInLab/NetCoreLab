@@ -19,4 +19,10 @@
     <Folder Include="Views\JWT\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Content Update="key.public.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
 </Project>

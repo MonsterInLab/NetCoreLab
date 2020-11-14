@@ -34,8 +34,13 @@ namespace Center.Web.Authentication
             //读取连接字符串
             services.AddScoped<DbContext, AppDbContext>();
 
-            #region HS256
-            services.AddScoped<IJWTService, JWTHSService>();
+            #region HS256  对称加密
+            //services.AddScoped<IJWTService, JWTHSService>();
+            //services.Configure<JWTTokenOptions>(this.Configuration.GetSection("JWTTokenOptions"));
+            #endregion
+
+            #region RS256  非对称加密
+            services.AddScoped<IJWTService, JWTRSService>();
             services.Configure<JWTTokenOptions>(this.Configuration.GetSection("JWTTokenOptions"));
             #endregion
 
