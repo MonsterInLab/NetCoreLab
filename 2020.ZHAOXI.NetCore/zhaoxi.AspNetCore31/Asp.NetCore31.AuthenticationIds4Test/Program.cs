@@ -9,6 +9,9 @@ using Microsoft.Extensions.Logging;
 
 namespace Asp.NetCore31.AuthenticationIds4Test
 {
+    /// <summary>
+    /// Identity Server4 ¼øÈ¨ÖÐÐÄ
+    /// </summary>
     public class Program
     {
         public static void Main(string[] args)

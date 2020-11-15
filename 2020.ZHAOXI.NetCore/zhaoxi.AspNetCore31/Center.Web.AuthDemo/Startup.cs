@@ -39,7 +39,7 @@ namespace Center.Web.AuthDemo
                          .AddNewtonsoftJson();
 
             //services.AddAuthorization()
-           // services.AddAuthorizationCore();
+            // services.AddAuthorizationCore();
             //services.AddAuthorizationPolicyEvaluator();
 
             #region Filter方式
@@ -200,7 +200,9 @@ namespace Center.Web.AuthDemo
             //        //}//自定义校验规则
             //     };
             // });
+            #endregion
 
+            #region JWT校验 RS 非对称加密
             //services.AddAuthorization(options =>
             //{
             //    options.AddPolicy("AdminPolicy",
@@ -224,49 +226,81 @@ namespace Center.Web.AuthDemo
 
             #endregion
 
-            #region JWT校验 RS 非对称加密
-
             #region 读取publickey
-            string path = Path.Combine(Directory.GetCurrentDirectory(), "key.public.json");
-            string key = File.ReadAllText(path);
-            Console.WriteLine("key:" + key);
-            var keyParams = JsonConvert.DeserializeObject<RSAParameters>(key);
-            var credentials = new SigningCredentials(new RsaSecurityKey(keyParams), SecurityAlgorithms.RsaSha256Signature);
+            //string path = Path.Combine(Directory.GetCurrentDirectory(), "key.public.json");
+            //string key = File.ReadAllText(path);
+            //Console.WriteLine("key:" + key);
+            //var keyParams = JsonConvert.DeserializeObject<RSAParameters>(key);
+            //var credentials = new SigningCredentials(new RsaSecurityKey(keyParams), SecurityAlgorithms.RsaSha256Signature);
             #endregion
 
-            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)//Scheme
-             .AddJwtBearer(options =>
-             {
-                 options.TokenValidationParameters = new TokenValidationParameters
-                 {
-                     //JWT有一些默认的属性，就是给鉴权时就可以筛选了
-                     //ValidateIssuer = true,//是否验证Issuer
-                     ValidateAudience = true,//是否验证Audience
-                    // ValidateLifetime = true,//是否验证失效时间
-                   //  ValidateIssuerSigningKey = true,//是否验证SecurityKey
-                    // ValidAudience = this.Configuration["JWTTokenOptions:Audience"],//
-                  //   ValidIssuer = this.Configuration["JWTTokenOptions:Issue"],//Issuer，这两项和前面签发jwt的设置一致
-                   //  IssuerSigningKey = new RsaSecurityKey(keyParams),
-                     AudienceValidator = (m, n, z) =>
-                     {
-                         string path = Path.Combine(Directory.GetCurrentDirectory(), "key.public.json");
-                         string key = File.ReadAllText(path);
-                         Console.WriteLine("key:" + key);
-                         Console.WriteLine("Configuration Audience:" + this.Configuration["JWTTokenOptions:Audience"]);
-                         Console.WriteLine("Audience:"+m.FirstOrDefault());
-                        //等同于去扩展了下Audience的校验规则---鉴权
-                        return m != null && m.FirstOrDefault().Equals(this.Configuration["JWTTokenOptions:Audience"]);
-                     },
-                     //LifetimeValidator = (notBefore, expires, securityToken, validationParameters) =>
-                     //{
-                     //    return notBefore <= DateTime.Now
-                     //    && expires >= DateTime.Now;
-                     //    //&& validationParameters
-                     //}//自定义校验规则
-                 };
-             });
+            #region 
+            //services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)//Scheme
+            // .AddJwtBearer(options =>
+            // {
+            //     options.TokenValidationParameters = new TokenValidationParameters
+            //     {
+            //         //JWT有一些默认的属性，就是给鉴权时就可以筛选了
+            //         //ValidateIssuer = true,//是否验证Issuer
+            //         ValidateAudience = true,//是否验证Audience
+            //        // ValidateLifetime = true,//是否验证失效时间
+            //       //  ValidateIssuerSigningKey = true,//是否验证SecurityKey
+            //        // ValidAudience = this.Configuration["JWTTokenOptions:Audience"],//
+            //      //   ValidIssuer = this.Configuration["JWTTokenOptions:Issue"],//Issuer，这两项和前面签发jwt的设置一致
+            //       //  IssuerSigningKey = new RsaSecurityKey(keyParams),
+            //         AudienceValidator = (m, n, z) =>
+            //         {
+            //             string path = Path.Combine(Directory.GetCurrentDirectory(), "key.public.json");
+            //             string key = File.ReadAllText(path);
+            //             Console.WriteLine("key:" + key);
+            //             Console.WriteLine("Configuration Audience:" + this.Configuration["JWTTokenOptions:Audience"]);
+            //             Console.WriteLine("Audience:"+m.FirstOrDefault());
+            //            //等同于去扩展了下Audience的校验规则---鉴权
+            //            return m != null && m.FirstOrDefault().Equals(this.Configuration["JWTTokenOptions:Audience"]);
+            //         },
+            //         //LifetimeValidator = (notBefore, expires, securityToken, validationParameters) =>
+            //         //{
+            //         //    return notBefore <= DateTime.Now
+            //         //    && expires >= DateTime.Now;
+            //         //    //&& validationParameters
+            //         //}//自定义校验规则
+            //     };
+            // });
             #endregion
 
+
+            #region IdentityServer4--Client
+            //services.AddAuthentication("Bearer")
+            //    .AddIdentityServerAuthentication(options =>
+            //    {
+            //        options.Authority = "http://localhost:5001";//ids4的地址
+            //        options.ApiName = "UserApi";
+            //        options.RequireHttpsMetadata = false;
+
+            //     //   options.audience
+            //    });
+
+            services.AddAuthentication("Bearer")
+                .AddJwtBearer("Bearer", options =>
+                {
+                    options.Authority = "http://localhost:5001";
+                    options.RequireHttpsMetadata = false;
+
+                    options.TokenValidationParameters = new TokenValidationParameters
+                    {
+                        ValidateAudience = false
+                    };
+                });
+
+            //services.AddAuthorization(options =>
+            //{
+            //    options.AddPolicy("eMailPolicy",
+            //        policyBuilder => policyBuilder
+            //        .RequireAssertion(context =>
+            //        context.User.HasClaim(c => c.Type == "client_eMail")
+            //        && context.User.Claims.First(c => c.Type.Equals("client_eMail")).Value.EndsWith("@qq.com")));//Client
+            //});
+            #endregion
 
             services.AddControllersWithViews();
         }
@@ -293,10 +327,21 @@ namespace Center.Web.AuthDemo
 
             app.UseRouting();
 
-            //Authentication 鉴权  是否登录
+            #region 基于CookieAuthentication
+            //app.UseAuthentication();//鉴权
+            #endregion
+
+            #region  JWT
+            //app.UseAuthentication();//鉴权：解析信息--就是读取token，解密token
+            #endregion
+
+            #region  Ids4
             app.UseAuthentication();
+            #endregion
 
             app.UseAuthorization(); //授权  -- 角色权限
+
+
 
             app.UseEndpoints(endpoints =>
             {
